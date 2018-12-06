@@ -1,30 +1,61 @@
-const apiKey = 'ae498ec7d2c12a488f23a06e510990ad'
-const place = 'mayrhofen';
+const message = document.querySelector('.message');
+const locationInput = document.querySelector('.location-input');
 
-const url = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&APPID=${apiKey}&cnt=6`;
+// check if key === enter
+const enterPressed = event => {
+  if (event.key === 'Enter') {
+    displayResult();
+  }
+}
+
+// listen for key pressed while in search box
+locationInput.addEventListener('keyup', enterPressed);
+
+const displayResult = () => {
+  const apiKey = 'ae498ec7d2c12a488f23a06e510990ad'
+  const place = locationInput.value;
+  // number of 3h forecasts. 8 * 3 = 24h
+  const lines = 8;
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&APPID=${apiKey}&cnt=${lines}`;
+  console.log(place);
+  fetch(url).then(function (result) {
+    return result.json();
+  }).then(function (json) {
+    console.log(json);
+    let total = 0;
+    json.list.forEach(element => {
+      if (element.hasOwnProperty('snow')) {
+        const volumeThreeHours = element.snow['3h'];
+        if (volumeThreeHours !== undefined) {
+          total += volumeThreeHours;
+        }
+      } else {
+        console.log('no snow');
+      }
+    });
+    console.log(total);
+    message.innerHTML = `${json.city.name}, ${json.city.country}, ${total}`;
+  });
+}
+
 
 // fetch the json weather data
-fetch(url).then(function (result) {
-  return result.json();
-}).then(function (json) {
-  console.log(json);
-  const three = '3h';
-  let total = 0;
-  // add any function you wanna run here
-  // console.log(json.list[6].snow[three]);
-  json.list.forEach(element => {
-    console.log(element.snow[three]);
-    const volumeThreeHours = element.snow[three];
-    if (volumeThreeHours !== undefined) {
-      total += volumeThreeHours;
-    }
-  });
-  console.log(total);
-});
 
-const snowAmount = document.querySelector('p');
-console.log(snowAmount);
-snowAmount.innerHTML = 'pede';
+// fetch(url).then(function (result) {
+//   return result.json();
+// }).then(function (json) {
+//   console.log(json);
+//   let total = 0;
+//   // add any function you wanna run here
+//   json.list.forEach(element => {
+//     const volumeThreeHours = element.snow['3h'];
+//     if (volumeThreeHours !== undefined) {
+//       total += volumeThreeHours;
+//     }
+//   });
+//   console.log(total);
+// });
+
 
 // INFOS
 
