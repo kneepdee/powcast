@@ -15,7 +15,7 @@ const enterPressed = event => {
 
 const displayResultMyLocation = () => {
   if (!navigator.geolocation) {
-    message.innerHTML = 'Geolocation is not supported by your browser';
+    message.innerHTML = 'Geolocation is not supported by your browser.';
     return;
   }
 
@@ -27,7 +27,7 @@ const displayResultMyLocation = () => {
   }
 
   const error = () => {
-    message.innerHTML = 'Could not retrieve your location';
+    message.innerHTML = 'Could not retrieve your location.';
   }
 
   navigator.geolocation.getCurrentPosition(success, error);
