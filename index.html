@@ -1,30 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>powcast</title>
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-  <button class="my-location-btn">Show my location</button>
+  <div class="app">
 
-  <hr>
+    <h1>Powcast</h1>
 
-  <p>OR</p>
+    <h2>Snowfall in the next 24h anywhere in the World.</h2>
 
-  <hr>
+    <button class="my-location-btn">Show my location</button>
 
-  <label for="location-input">Enter location:</label>
-  <input id="location-input" type="text" class="location-input">
-  <button class="search-btn">Search</button>
+    <p>OR</p>
 
-  <hr>
+    <div>
+      <label for="location-input">Enter location:</label>
+    </div>
+    <div>
+      <input placeholder="Any place in the world" id="location-input" type="text" class="location-input">
+    </div>
+    <div>
+      <button class="search-btn">Search</button>
+    </div>
+    <!-- this for loaction -->
+    <p class="message"></p>
+    <!-- this p for snow amount -->
+    <p class="snowfall"></p>
 
-  <p class="message"></p>
+  </div>
 
   <script src="scripts.js"></script>
+
 </body>
+
 </html>

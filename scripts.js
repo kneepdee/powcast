@@ -45,6 +45,7 @@ const displayResultInput = () => {
 }
 
 const fetchData = url => {
+  message.classList.remove('animated', 'fadeInDown');
   fetch(url).then(function (result) {
     return result.json();
   }).then(function (json) {
@@ -66,7 +67,8 @@ const fetchData = url => {
       }
     });
     console.log(totalSnow);
-    message.innerHTML = `${json.city.name}, ${json.city.country}, ${totalSnow.toFixed(2)} mm`;
+    message.innerHTML = `${json.city.name}, ${json.city.country} <br> <span class="snow-amount">${totalSnow.toFixed(2)} mm</span>`;
+    message.classList.add('animated', 'fadeInDown');
   })
 }
 
