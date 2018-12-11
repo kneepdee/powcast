@@ -1,6 +1,6 @@
 # Snöcast
 
-A snow forecast webapp displaying the predicted snowfall for the next 24h in user speciafied location.
+A snow forecast webapp displaying the predicted snowfall for the next 24h in user specified location.
 
 ## Built With
 
