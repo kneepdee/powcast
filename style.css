@@ -1,14 +1,7 @@
 /* SCSS */
 * {
   text-align: center;
-}
-
-body button {
-  font-size: 200%;
-}
-
-label, input {
-  font-size: 200%;
+  font-size: 150%;
 }
 
 /*# sourceMappingURL=style.css.map */

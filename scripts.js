@@ -1,6 +1,7 @@
 const message = document.querySelector('.message');
 const locationInput = document.querySelector('.location-input');
 const myLocationBtn = document.querySelector('.my-location-btn');
+const searchBtn = document.querySelector('.search-btn');
 
 const apiKey = 'ae498ec7d2c12a488f23a06e510990ad'
 const lines = 8;
@@ -12,35 +13,28 @@ const enterPressed = event => {
   }
 }
 
-
-const getMyLocation = () => {
-  navigator.geolocation.getCurrentPosition(function (position) {
-    const latLon = [position.coords.latitude, position.coords.longitude];
-    return latLon;
-    // console.log(latLon);
-  });
-}
-
-const loc = getMyLocation();
-console.log(loc);
-
-// let lat, lon;
-// const loc = getMyLocation();
-// console.log(loc);
-// [lat, lon] = getMyLocation();
-// console.log(lat, lon);
-
-
-
 const displayResultMyLocation = () => {
   if (!navigator.geolocation) {
     message.innerHTML = 'Geolocation is not supported by your browser';
     return;
   }
-  const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${apiKey}&cnt=${lines}`;
-  fetchData(url);
-}
 
+  const success = position => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${apiKey}&cnt=${lines}`;
+    fetchData(url);
+  }
+
+  const error = () => {
+    message.innerHTML = 'Could not retrieve your location';
+  }
+
+  navigator.geolocation.getCurrentPosition(success, error);
+
+  message.innerHTML = 'Fetching location...';
+
+}
 
 const displayResultInput = () => {
   const place = locationInput.value;
@@ -72,26 +66,11 @@ const fetchData = url => {
       }
     });
     console.log(totalSnow);
-    message.innerHTML = `${json.city.name}, ${json.city.country}, ${totalSnow}`;
+    message.innerHTML = `${json.city.name}, ${json.city.country}, ${totalSnow.toFixed(2)} mm`;
   })
 }
 
 // listen for key pressed while in search box
 locationInput.addEventListener('keyup', enterPressed);
 myLocationBtn.addEventListener('click', displayResultMyLocation);
-
-
-// INFOS
-
-// list.snow.3h Snow volume for last 3 hours
-
-// TODO
-
-// or user can choose any location and get forecast
-
-// if snow > 10cm -> POWDAY
-// else 
-// show amount of snow
-// or show NO SNOW
-
-// add error message when location not found
+searchBtn.addEventListener('click', displayResultInput)
